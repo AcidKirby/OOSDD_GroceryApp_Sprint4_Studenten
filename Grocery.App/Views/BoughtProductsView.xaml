@@ -28,13 +28,23 @@
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:BoughtProducts" >
-                        <Grid>
+                    <DataTemplate x:DataType="m:BoughtProducts">
+                        <Grid Padding="5">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <!-- Toon hier de naam van de Client naam van de boodschappenlijst -->
+
+                            <!-- Client naam -->
+                            <Label Text="{Binding Client.Name}" 
+                   Grid.Column="0"
+                   FontSize="16" 
+                   FontAttributes="Bold" />
+
+                            <!-- Naam boodschappenlijst -->
+                            <Label Text="{Binding GroceryList.Name}" 
+                   Grid.Column="1"
+                   FontSize="16" />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
