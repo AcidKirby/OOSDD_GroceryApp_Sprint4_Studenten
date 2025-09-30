@@ -15,45 +15,50 @@
             <RowDefinition Height="80"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Picker Grid.Column="0" Grid.Row="0" Margin="10,0,0,0" Title="Klik op onderstaand pijltje om een product te selecteren:"
-        ItemsSource="{Binding Products}"
-        SelectedItem="{Binding SelectedProduct, Mode=TwoWay}" 
-        SelectedIndexChanged="Picker_SelectedIndexChanged"
-        BackgroundColor="{StaticResource Primary}"
-            TextColor="{StaticResource Secondary}">
-        </Picker>
+
+        <!-- Product Picker -->
+        <Picker Grid.Column="0" Grid.Row="0" Margin="10,0,0,0" 
+                Title="Klik op onderstaand pijltje om een product te selecteren:"
+                ItemsSource="{Binding Products}"
+                ItemDisplayBinding="{Binding Name}"
+                SelectedItem="{Binding SelectedProduct, Mode=TwoWay}" 
+                BackgroundColor="{StaticResource Primary}"
+                TextColor="{StaticResource Secondary}" />
+
+        <!-- Resultaat lijst -->
         <Border Grid.Row="1" Grid.Column="0" Stroke="#C49B33" StrokeThickness="4" Padding="5" Margin="5" HorizontalOptions="Center">
-            <CollectionView ItemsSource="{Binding BoughtProductsList}" Margin="5" HorizontalOptions="End" SelectionMode="Single">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="m:BoughtProducts">
-                        <Grid Padding="5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+            <StackLayout>
 
-                            <!-- Client naam -->
-                            <Label Text="{Binding Client.Name}" 
-                   Grid.Column="0"
-                   FontSize="16" 
-                   FontAttributes="Bold" />
+                <!-- Statusboodschap altijd boven de lijst -->
+                <Label Text="{Binding StatusMessage}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       Margin="10" />
 
-                            <!-- Naam boodschappenlijst -->
-                            <Label Text="{Binding GroceryList.Name}" 
-                   Grid.Column="1"
-                   FontSize="16" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <CollectionView.EmptyView>
-                    <ContentView>
-                        <Label Text="Er zijn geen verkochte producten" FontSize="18" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
-                    </ContentView>
-                </CollectionView.EmptyView>
-            </CollectionView>
+                <!-- CollectionView met aankopen -->
+                <CollectionView ItemsSource="{Binding BoughtProductsList}" Margin="5" SelectionMode="Single">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="10" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="m:BoughtProducts">
+                            <Grid Padding="5" ColumnDefinitions="*,*">
+                                <!-- Client naam -->
+                                <Label Text="{Binding Client.Name}" 
+                                       Grid.Column="0"
+                                       FontSize="16" 
+                                       FontAttributes="Bold" />
+                                <!-- Naam boodschappenlijst -->
+                                <Label Text="{Binding GroceryList.Name}" 
+                                       Grid.Column="1"
+                                       FontSize="16" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </StackLayout>
         </Border>
     </Grid>
 </ContentPage>
